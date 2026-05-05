@@ -29,7 +29,7 @@ namespace LabyrinthEscape
             Console.WriteLine($"\n=== LABYRINTH ESCAPE ===");
             Console.WriteLine($"Персонаж: {_player}");
             Console.WriteLine("Управление: W/A/S/D — движение, U — способность, M — карта, Q — выход\n");
-            _field.DrawToConsole();
+            _field.DrawToConsole(_playerX, _playerY);
 
             while (!_gameOver && _player.IsAlive)
             {
@@ -58,7 +58,7 @@ namespace LabyrinthEscape
                     _player.UseSpecialAbility(_field);
                     return;
                 case "M":
-                    _field.DrawToConsole();
+                    _field.DrawToConsole(_playerX, _playerY);
                     return;
                 case "Q":
                     _gameOver = true;
@@ -92,8 +92,7 @@ namespace LabyrinthEscape
             if (_field is DynamicField dynamicField)
                 dynamicField.OnMove();
 
-            _field.DrawToConsole();
-            MarkPlayer();
+            _field.DrawToConsole(_playerX, _playerY);
         }
 
         private void MarkPlayer()

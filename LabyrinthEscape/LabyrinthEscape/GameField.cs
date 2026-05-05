@@ -25,15 +25,20 @@ namespace LabyrinthEscape
 
         public abstract void GenerateMap();
 
-        public void DrawToConsole()
+        public void DrawToConsole(int playerX = -1, int playerY = -1)
         {
             Console.WriteLine();
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    char sym = Grid[y, x].GetSymbol();
-                    Console.Write(sym + " ");
+                    if (x == playerX && y == playerY)
+                        Console.Write("P ");
+                    else
+                    {
+                        char sym = Grid[y, x].GetSymbol();
+                        Console.Write(sym + " ");
+                    }
                 }
                 Console.WriteLine();
             }
@@ -51,11 +56,11 @@ namespace LabyrinthEscape
 
         public void SetCell(int x, int y, IInteractable obj) => Grid[y, x] = obj;
 
-        public void RevealAll()
+        public void RevealAll(int playerX = -1, int playerY = -1)
         {
             revealed = true;
             Console.WriteLine("Вся карта открыта!");
-            DrawToConsole();
+            DrawToConsole(playerX, playerY);
         }
     }
 }
